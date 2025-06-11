@@ -25,16 +25,15 @@ if (USE_LATEX)
             DEPENDS  ${report_files})
 
     add_custom_target(${ProjectId}_all_formats ALL)
-    add_dependencies(${ProjectId}_pdf ${ProjectId}_prebuild)
     add_dependencies(${ProjectId}_all_formats ${ProjectId}_pdf)
 
     foreach (report_name ${list_report_names})
             add_custom_command(
                     TARGET ${ProjectId}_all_formats
                     POST_BUILD
-                    COMMAND ${CMAKE_COMMAND} -E rename "${CMAKE_CURRENT_SOURCE_DIR}/${report_name}.aux" "${LATEX_OUTPUT_PATH}/${report_name}.aux"
-                    COMMAND ${CMAKE_COMMAND} -E rename "${CMAKE_CURRENT_SOURCE_DIR}/${report_name}.log" "${LATEX_OUTPUT_PATH}/${report_name}.log"
-                    COMMAND ${CMAKE_COMMAND} -E rename "${CMAKE_CURRENT_SOURCE_DIR}/${report_name}.pdf" "${LATEX_OUTPUT_PATH}/${report_name}.pdf"
+                    COMMAND mv "${CMAKE_CURRENT_SOURCE_DIR}/${report_name}.aux" "${LATEX_OUTPUT_PATH}/${report_name}.aux"
+                    COMMAND mv "${CMAKE_CURRENT_SOURCE_DIR}/${report_name}.log" "${LATEX_OUTPUT_PATH}/${report_name}.log"
+                    COMMAND mv "${CMAKE_CURRENT_SOURCE_DIR}/${report_name}.pdf" "${LATEX_OUTPUT_PATH}/${report_name}.pdf"
             )
     endforeach ()
 else()
